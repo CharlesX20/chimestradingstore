@@ -6,7 +6,7 @@ import { useCartStore } from "../stores/useCartStore";
 import { Camera, Calendar, ArrowRight, Loader } from "lucide-react";
 import toast from "react-hot-toast";
 
-const MANAGER_PHONE = "12492880828"; // manager phone (international format WITHOUT +)
+const MANAGER_PHONE = "2348037093378"; // manager phone (international format WITHOUT +)
 const MAX_RECEIPT_BYTES = 8 * 1024 * 1024; // 8 MB
 const ACCEPTED_IMAGE_MIMES = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/heic", "image/heif"];
 
@@ -320,7 +320,7 @@ export default function CheckoutPage() {
                 value={itemsText}
                 className="mt-2 block w-full px-3 py-2 bg-black/50 border border-white/10 rounded-md text-white text-sm sm:text-base h-36 resize-none"
               />
-              <p className="mt-1 text-xs text-white/60">Items and prices are locked here to prevent tampering.</p>
+              <p className="mt-1 text-xs text-white/60">Items and prices are already sent to the database.</p>
             </div>
 
             <div className="rounded-md border border-white/8 p-4">

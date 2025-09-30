@@ -56,11 +56,21 @@ export const useProductStore = create((set) => ({
         loading: false,
       }));
       toast.success("Product deleted");
+
+      // refetch featured products to ensure homepage shows fresh state
+      // only call when relevant (e.g., on homepage). This is safe and forces fresh data.
+      try {
+        await axios.get("/products/featured"); // triggers backend and repopulates cache if cleared
+        // or better: call fetchFeaturedProducts() action from store if you have it accessible
+      } catch (err) {
+        // ignore if fails
+      }
     } catch (error) {
       set({ loading: false });
       toast.error(error?.response?.data?.error || "Failed to delete product");
     }
   },
+
 
   toggleFeaturedProduct: async (productId) => {
     set({ loading: true });

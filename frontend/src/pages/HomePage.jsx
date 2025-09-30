@@ -83,7 +83,7 @@ const HomePage = () => {
             ))}
           </div>
 
-          {!isLoading && products.length > 0 && (
+          {!isLoading && (
             <div className="mt-10">
               <FeaturedProducts featuredProducts={products} />
             </div>

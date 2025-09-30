@@ -50,6 +50,12 @@ const FeaturedProducts = ({ featuredProducts = [] }) => {
         </h2>
 
         <div className="relative">
+          {featuredProducts.length === 0 && (
+            <div className="py-8 text-center text-white/70">
+            No latest products at the moment.
+        </div>
+        )}
+
           <div className="overflow-hidden">
             <div
 				className='flex transition-transform duration-300 ease-in-out'

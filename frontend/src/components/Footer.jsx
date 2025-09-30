@@ -27,13 +27,13 @@ const Footer = () => {
             {/* Location */}
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-[#ED232A]" />
-              <span>Relieve Market</span>
+              <span>B30/ks/1Destiny line. Ogbaru Relief Market, Anambra State</span>
             </div>
           </div>
 
           {/* Divider */}
           <div className="mt-6 border-t border-white/10 pt-4 text-center text-xs text-white/60">
-            © {new Date().getFullYear()} SpiceMarket — All rights reserved.
+            © {new Date().getFullYear()} Chime's Trading Store — All rights reserved.
           </div>
         </div>
       </div>

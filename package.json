@@ -1,0 +1,38 @@
+{
+  "name": "e-commerce-store-2025",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CharlesX20/Client-E-Commerce-Website-2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CharlesX20/Client-E-Commerce-Website-2025/issues"
+  },
+  "homepage": "https://github.com/CharlesX20/Client-E-Commerce-Website-2025#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "ioredis": "^5.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.1",
+    "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

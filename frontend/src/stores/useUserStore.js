@@ -61,7 +61,13 @@ export const useUserStore = create((set, get) => ({
 			const response = await axios.get("/auth/profile");
 			set({ user: response.data, checkingAuth: false });
 		} catch (error) {
-			console.log(error.message);
+			// Quietly treat 401 as "not logged in" without spamming logs/toasts
+			if (error?.response?.status === 401) {
+				set({ checkingAuth: false, user: null });
+				return;
+			}
+			// For other errors you may want to log once (dev only)
+			console.error("checkAuth error:", error?.message || error);
 			set({ checkingAuth: false, user: null });
 		}
 	},

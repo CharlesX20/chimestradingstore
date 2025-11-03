@@ -59,7 +59,7 @@ const ProductsList = () => {
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-white/80">${Number(product?.price ?? 0).toFixed(2)}</div>
+                    <div className="text-sm text-white/80">&#8358;{Number(product?.price ?? 0).toLocaleString('en-US')}</div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">

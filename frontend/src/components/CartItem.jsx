@@ -43,7 +43,7 @@ const CartItem = ({ item }) => {
 
 					<div className='text-end md:order-4 md:w-32'>
 						<p className='text-base font-bold text-yellow-400'>
-							&#8358;{item.price}
+							&#8358;{item.price.toLocaleString('en-US')}
 						</p>
 					</div>
 				</div>

@@ -3,6 +3,10 @@ import CategoryItem from "../components/CategoryItem";
 import { useProductStore } from "../stores/useProductStore";
 import FeaturedProducts from "../components/FeaturedProducts";
 import GreetingBanner from "../components/GreetingBanner";
+import HeroSection from "../components/HeroSection";
+import AllProducts from "../components/AllProducts";
+
+
 
 const categories = [
   { href: "/Cartons", name: "Cartons", imageUrl: "/product11.jpeg" },
@@ -15,7 +19,7 @@ const categories = [
 ];
 
 const HomePage = () => {
-  const { fetchFeaturedProducts, products = [], isLoading } = useProductStore();
+  const { fetchFeaturedProducts, featuredProducts = [], isLoading } = useProductStore();
 
   useEffect(() => {
     fetchFeaturedProducts();
@@ -23,11 +27,12 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <GreetingBanner />
+        <HeroSection />
         <div className="mx-auto max-w-6xl bg-black/50 backdrop-blur-sm rounded-2xl px-4 sm:px-8 py-8 sm:py-12">
-        
+
           <div className="text-center mb-6">
             <h1 className="mx-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#FFB300] leading-tight">
               Explore All Our Products
@@ -85,9 +90,14 @@ const HomePage = () => {
 
           {!isLoading && (
             <div className="mt-10">
-              <FeaturedProducts featuredProducts={products} />
+              <FeaturedProducts featuredProducts={featuredProducts} />
             </div>
           )}
+        </div>
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16">
+        <div className="mx-auto max-w-6xl">
+          <AllProducts />
         </div>
       </div>
     </div>

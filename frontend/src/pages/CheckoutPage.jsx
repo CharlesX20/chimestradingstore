@@ -61,7 +61,7 @@ export default function CheckoutPage() {
 
     const text =
       list.length > 0
-        ? list.map((i) => `${i.index}. ${i.name} — ₦${i.lineTotal.toFixed(2)} (qty: ${i.quantity})`).join("\n")
+        ? list.map((i) => `${i.index}. ${i.name} — ₦${i.lineTotal.toLocaleString('en-US')} (qty: ${i.quantity})`).join("\n")
         : "No items";
 
     return { itemsText: text, orderItems: list };
@@ -339,7 +339,7 @@ export default function CheckoutPage() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <p className="text-sm sm:text-base text-white/80">Total</p>
-                <p className="text-2xl sm:text-3xl font-extrabold text-[#FFB300]">₦{Number(total || 0).toFixed(2)}</p>
+                <p className="text-2xl sm:text-3xl font-extrabold text-[#FFB300]">₦{Number(total || 0).toLocaleString('en-US')}</p>
               </div>
 
               <button

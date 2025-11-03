@@ -6,7 +6,7 @@ import { MoveRight } from "lucide-react";
 const OrderSummary = () => {
   const { total = 0, cart = [] } = useCartStore();
 
-  const formattedTotal = Number(total || 0).toFixed(2);
+  const formattedTotal = Number(total || 0).toLocaleString('en-US');
   const itemCount = cart?.length ?? 0;
   const isEmpty = itemCount === 0;
 

@@ -78,7 +78,7 @@ const FeaturedProducts = ({ featuredProducts = [] }) => {
                     <div className="p-4">
                       <h3 className="text-lg font-semibold mb-2 text-white">{product.name ?? "Unnamed"}</h3>
                       <p className="text-[#ED232A] font-semibold mb-4">
-                        &#8358;{Number(product?.price ?? 0).toFixed(2)}
+                        &#8358;{Number(product?.price ?? 0).toLocaleString('en-US')}
                       </p>
                     <button
                       onClick={() => {

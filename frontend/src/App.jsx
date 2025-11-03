@@ -7,11 +7,13 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import InstallButton from './InstallButton';
 
 import { useEffect } from "react";
 import { useUserStore } from "./stores/useUserStore";
 import { useCartStore } from "./stores/useCartStore";
 import LoadingSpinner from "./components/LoadingSpinner";
+import UpdateNotifier from "./components/UpdateNotifier";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
@@ -72,6 +74,8 @@ function App() {
           </Routes>
         </main>
       </div>
+      <InstallButton />
+      <UpdateNotifier />
       <Footer />
       <Toaster />
     </div>

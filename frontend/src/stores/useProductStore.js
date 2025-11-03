@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import axios from "../lib/axios";
+import { forceClientUpdates } from "../lib/swHelpers";
 
 export const useProductStore = create((set) => ({
   products: [],
@@ -18,6 +19,7 @@ export const useProductStore = create((set) => ({
         loading: false,
       }));
       toast.success("Product created");
+      forceClientUpdates();
     } catch (error) {
       toast.error(error?.response?.data?.error || "Failed to create product");
       set({ loading: false });
@@ -28,7 +30,9 @@ export const useProductStore = create((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get("/products");
-      set({ products: response.data.products, loading: false });
+      const productsList = Array.isArray(response.data) ? response.data : response.data?.products ?? [];
+      set({ products: productsList, loading: false });
+
     } catch (error) {
       const status = error?.response?.status;
       set({ products: [], loading: false });
@@ -67,6 +71,7 @@ export const useProductStore = create((set) => ({
         loading: false,
       }));
       toast.success("Product deleted");
+      forceClientUpdates();
 
       // refetch featured products to ensure homepage shows fresh state
       // only call when relevant (e.g., on homepage). This is safe and forces fresh data.
@@ -82,44 +87,49 @@ export const useProductStore = create((set) => ({
     }
   },
 
-
   toggleFeaturedProduct: async (productId) => {
     set({ loading: true });
     try {
+      // backend toggles featured state and returns either { isFeatured: boolean, ...maybeUpdatedProduct }
       const response = await axios.patch(`/products/${productId}`);
-      const updatedIsFeatured = response.data.isFeatured;
+      const updatedIsFeatured = response.data?.isFeatured;
+      const updatedProductFromServer = response.data?.product ?? response.data; // support both shapes
 
       set((state) => {
-        // update all products list if present
+        // 1) Update main products list if present
         const products = state.products.map((product) =>
           product._id === productId ? { ...product, isFeatured: updatedIsFeatured } : product
         );
 
-        // update featuredProducts: add updated item if marked featured, remove it otherwise
+        // 2) Manage featuredProducts list
         let featuredProducts = Array.isArray(state.featuredProducts) ? [...state.featuredProducts] : [];
 
         if (updatedIsFeatured) {
-          // If server returned updated product object use it, else find original and mark
-          const updatedProduct = response.data._id ? response.data : products.find((p) => p._id === productId);
+          // Prefer server-updated product if available
+          const updatedProduct = updatedProductFromServer?._id ? updatedProductFromServer : products.find((p) => p._id === productId);
           const foundIndex = featuredProducts.findIndex((p) => p._id === productId);
           if (foundIndex >= 0) {
             featuredProducts[foundIndex] = { ...featuredProducts[foundIndex], ...updatedProduct, isFeatured: true };
           } else if (updatedProduct) {
+            // Add to front so featured list shows newest first
             featuredProducts.unshift({ ...updatedProduct, isFeatured: true });
           }
         } else {
-          featuredProducts = featuredProducts.filter((p) => p._1 !== productId && p._id !== productId);
+          // Remove it cleanly
+          featuredProducts = featuredProducts.filter((p) => p._id !== productId);
         }
 
         return { products, featuredProducts, loading: false };
       });
 
       toast.success("Product updated");
+      try { forceClientUpdates(); } catch (e) { /* ignore */ }
     } catch (error) {
       set({ loading: false });
       toast.error(error?.response?.data?.error || "Failed to update product");
     }
   },
+
 
   editProduct: async (productId, updatedData) => {
     set({ loading: true });
@@ -130,6 +140,7 @@ export const useProductStore = create((set) => ({
         products: state.products.map((p) => (p._id === productId ? updated : p)),
         loading: false,
       }));
+      forceClientUpdates();
       return updated;
     } catch (error) {
       set({ loading: false });
